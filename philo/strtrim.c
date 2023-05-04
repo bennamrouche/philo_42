@@ -6,17 +6,17 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 13:11:40 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/04/30 14:11:44 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:41:40 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-char	*ft_substr(char  *str, unsigned int start, size_t len)
+char	*ft_substr(char *str, unsigned int start, size_t len)
 {
-	char *strout;
-	size_t i;
-	size_t j;
+	char	*strout;
+	size_t	i;
+	size_t	j;
 
 	j = 0;
 	i = 0;
@@ -41,7 +41,7 @@ char	*ft_substr(char  *str, unsigned int start, size_t len)
 
 static int	is_exist( char *pt, char c)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (pt[count])
@@ -53,9 +53,9 @@ static int	is_exist( char *pt, char c)
 	return (0);
 }
 
-static int	get_end( char *s1,  char *set)
+static int	get_end( char *s1, char *set)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(s1);
 	while (--len)
@@ -68,7 +68,7 @@ static int	get_end( char *s1,  char *set)
 
 static int	get_start( char *s1, char *set)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (s1[count])
@@ -80,10 +80,10 @@ static int	get_start( char *s1, char *set)
 	return (-1);
 }
 
-char	*ft_strtrim(char  *s1, char  *set)
+char	*ft_strtrim(char *s1, char *set)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	if (!s1 || !set)
 		return ((char *)s1);

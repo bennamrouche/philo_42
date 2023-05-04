@@ -6,13 +6,13 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:52:53 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/02 18:47:13 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:00:03 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	take_forks(philo_t *philo)
+static void	take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->phlio_fork1);
 	print_log(philo, TK_FORK);
@@ -20,30 +20,25 @@ static void	take_forks(philo_t *philo)
 	print_log(philo, TK_FORK);
 }
 
-static void eating(philo_t *philo)
+static void	eating(t_philo *philo)
 {
 	print_log(philo, EAT);
 	pthread_mutex_lock(&philo->lock);
 	philo->lst_eat = get_time_ms();
-	pthread_mutex_unlock(&philo->lock);
-	sleep_ms(philo->data->tm_eat);
-	pthread_mutex_lock(&philo->lock);
 	philo->num_of_eat++;
 	pthread_mutex_unlock(&philo->lock);
+	sleep_ms(philo->data->tm_eat);
 	pthread_mutex_unlock(&philo->phlio_fork1);
 	pthread_mutex_unlock(philo->phlio_fork2);
 }
 
 void	*life(void *pt)
 {
-	philo_t *philo;
-	int index;
-	pthread_mutex_lock(&philo->lock);
-	index = philo->index;
-	pthread_mutex_unlock(&philo->lock);
-	philo = (philo_t *)pt;
-	if ((index % 2) == 1)
-		sleep_ms(1);
+	t_philo	*philo;
+
+	philo = (t_philo *)pt;
+	if ((philo->index % 2) == 0)
+		usleep(1000);
 	while (1)
 	{
 		take_forks(philo);

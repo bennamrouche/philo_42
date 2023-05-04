@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:07:48 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/02 18:42:13 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:49:50 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_strlen(char *str)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (*str != '\0')
@@ -27,7 +27,6 @@ int	ft_strlen(char *str)
 
 int	ft_isdigit(int c)
 {
-
 	if (c >= 48 && c <= 57)
 		return (1);
 	return (0);
@@ -40,7 +39,7 @@ int	is_pos_number(char *str)
 
 	i = 0;
 	len = 0;
-	if(str[i] == '+')
+	if (str[i] == '+')
 	i++;
 	if (str[i] == '\0')
 		return (false);
@@ -53,23 +52,25 @@ int	is_pos_number(char *str)
 	return (true);
 }
 
-void	print_log(philo_t *philo, char *log)
+void	print_log(t_philo *philo, char *log)
 {
-	int index;
+	long long	time_ms;
 
 	pthread_mutex_lock(&philo->lock);
-		index = philo->index;
+	time_ms = get_time_ms() - philo->data->tm_start;
 	pthread_mutex_unlock(&philo->lock);
-	long time_ms = get_time_ms() - philo->data->tm_start;
-	pthread_mutex_lock(philo->data->mut_print);
-	printf("%ld %ld %s\n",time_ms, philo->index,log);
-	pthread_mutex_unlock(philo->data->mut_print);
+	pthread_mutex_lock(&philo->data->mut_print);
+	printf("%lld %lld %s\n", time_ms, philo->index, log);
+	if (log[0] == 'd')
+		return ;
+	pthread_mutex_unlock(&philo->data->mut_print);
 }
 
-long	get_time_ms()
+long long	get_time_ms(void)
 {
-	struct timeval tm;
-	long cr_time_ms;
+	struct timeval	tm;
+	long long		cr_time_ms;
+
 	protec_errr(gettimeofday(&tm, NULL), "Time get Error");
 	cr_time_ms = (tm.tv_sec * 1000) + (tm.tv_usec / 1000);
 	return (cr_time_ms);

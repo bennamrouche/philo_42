@@ -6,19 +6,19 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:47:23 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/02 17:49:30 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/04 14:58:22 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-philo_t	*getall_philo(int num)
+t_philo	*getall_philo(int num)
 {
-	philo_t		*all;
+	t_philo		*all;
 	int			i;
 
 	i = 0;
-	all = malloc(num * sizeof(philo_t));
+	all = malloc(num * sizeof(t_philo));
 	protec_errr_pt(all, ERR_OUT);
 	while (i < num)
 	{
@@ -36,5 +36,21 @@ char	*ft_strdup(char *s1)
 
 void	sleep_ms(long time)
 {
-	usleep(1000 * time);
+	int					i;
+	unsigned long long	start;
+
+	time *= 1000;
+	start = get_time_us();
+	while (start + time > get_time_us())
+		usleep(100);
+}
+
+unsigned long long	get_time_us(void)
+{
+	struct timeval		tm;
+	unsigned long long	cr_time_ms;
+
+	protec_errr(gettimeofday(&tm, NULL), "Time get Error");
+	cr_time_ms = (tm.tv_sec * 1000 * 1000) + (tm.tv_usec);
+	return (cr_time_ms);
 }
