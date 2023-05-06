@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:52:53 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/04 17:00:03 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 12:47:37 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 static void	take_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->phlio_fork1);
+	sem_wait(philo->data->forks);
 	print_log(philo, TK_FORK);
-	pthread_mutex_lock(philo->phlio_fork2);
+	sem_wait(philo->data->forks);
 	print_log(philo, TK_FORK);
 }
 
 static void	eating(t_philo *philo)
 {
 	print_log(philo, EAT);
-	pthread_mutex_lock(&philo->lock);
+	sem_wait(philo->lock);
 	philo->lst_eat = get_time_ms();
 	philo->num_of_eat++;
-	pthread_mutex_unlock(&philo->lock);
+	sem_post(philo->lock);
 	sleep_ms(philo->data->tm_eat);
-	pthread_mutex_unlock(&philo->phlio_fork1);
-	pthread_mutex_unlock(philo->phlio_fork2);
+	sem_post(philo->data->forks);
+	sem_post(philo->data->forks);
 }
 
 void	*life(void *pt)
@@ -37,6 +37,8 @@ void	*life(void *pt)
 	t_philo	*philo;
 
 	philo = (t_philo *)pt;
+	protec_error(pthread_create(philo->th_id, NULL, monitor, philo),
+		"err: thread ");
 	if ((philo->index % 2) == 0)
 		usleep(1000);
 	while (1)

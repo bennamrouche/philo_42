@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:02:35 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/05 16:43:23 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	fatal_error(char *err)
 	exit(1);
 }
 
-void	protec_errr(int val, char *err)
+void	protec_error(int val, char *err)
 {
 	if (val != 0)
 	{
@@ -34,7 +34,7 @@ void	protec_errr(int val, char *err)
 	}
 }
 
-void	protec_errr_pt(void *val, char *err)
+void	protec_error_pt(void *val, char *err)
 {
 	if (val == NULL)
 	{

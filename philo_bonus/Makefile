@@ -6,7 +6,7 @@
 #    By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/27 09:36:34 by ebennamr          #+#    #+#              #
-#    Updated: 2023/05/05 16:24:36 by ebennamr         ###   ########.fr        #
+#    Updated: 2023/05/06 12:30:57 by ebennamr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJ = $(SRC:.c=.o)
 all : $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFALS)  $(SRC) -o $(NAME)
+	$(CC) $(CFALS)  $(OBJ) -o $(NAME)
 %.o : %.c $(INCLUDE)
 	$(CC) $(CFALS) -c $< -o $@
 

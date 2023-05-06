@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 13:11:40 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/04 17:41:40 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_substr(char *str, unsigned int start, size_t len)
 	if (len > ft_strlen(str))
 		len = ft_strlen(str);
 	strout = (char *)malloc(len * sizeof(char) + 1);
-	protec_errr_pt(strout, ERR_OUT);
+	protec_error_pt(strout, ERR_OUT);
 	while (str[i] != '\0')
 	{
 		if (i >= start && j < len)

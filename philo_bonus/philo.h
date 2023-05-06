@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 11:47:59 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/05 17:22:29 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ void				print_log(t_philo *philo, char *log);
 t_philo				*getall_philo(int num);
 long long			get_time_ms(void);
 void				fatal_error(char *err);
-void				protec_errr_pt(void *val, char *err);
-void				protec_errr(int val, char *err);
+void				protec_error_pt(void *val, char *err);
+void				protec_error(int val, char *err);
 char				*ft_strtrim(char *s1, char *set);
 int					ft_strlen(char *str);
 void				sleep_ms(long time);
-int					monitor(t_philo *philo, int num, int i, int eat_max);
+int					monitor(t_philo *philo, int i, int eat_max);
 void				*life(void *pt);
 unsigned			long long	get_time_us(void);
 void				sem_protec(sem_t *val);

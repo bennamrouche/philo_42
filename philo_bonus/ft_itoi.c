@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 17:03:02 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/05 17:05:52 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_itoa(int n)
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	pt = (char *)malloc(sizeof(char) * (i + 1));
-	protec_errr_pt(pt, ERR_OUT);
+	protec_error_pt(pt, ERR_OUT);
 	if (!pt)
 		return (0);
 	if (n < 0)

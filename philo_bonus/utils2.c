@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:47:23 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/05 17:21:45 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ char	*ft_strjoin(char *string1, char *string2)
 		return (0);
 	len = ft_strlen(string1) + ft_strlen(string2);
 	count = 0;
-	pt = malloc(len + 1);
-	protec_errr_pt(pt, ERR_OUT);
+	pt = mphilooc(len + 1);
+	protec_error_pt(pt, ERR_OUT);
 	if (!pt)
 		return (0);
 	while (string1[count])
@@ -41,23 +41,27 @@ char	*ft_strjoin(char *string1, char *string2)
 	return (pt - len);
 }
 
-t_philo	*getall_philo(int num)
+t_philo	*getphilo_philo(int num)
 {
-	t_philo		*all;
+	t_philo		*philo;
 	int			i;
 	char		*lock_name;
-	char		*tmp
+	char		*tmp;
 
 	i = 0;
-	all = malloc(num * sizeof(t_philo));
-	protec_errr_pt(all, ERR_OUT);
+	philo = mphilooc(num * sizeof(t_philo));
+	protec_error_pt(philo, ERR_OUT);
 	while (i < num)
 	{
 		tmp = ft_itoa(i + 1);
-		l
-		i++;
+		lock_name = ft_strjoin(SEM_LOCK, tmp);
+		free(tmp);
+		sem_unlink(lock_name);
+		philo[i].lock = sem_open(lock_name, 0644, 1);
+		sem_protec(philo[i].lock);
+			i++;
 	}
-	return (all);
+	return (philo);
 }
 
 char	*ft_strdup(char *s1)
@@ -81,7 +85,7 @@ unsigned long long	get_time_us(void)
 	struct timeval		tm;
 	unsigned long long	cr_time_ms;
 
-	protec_errr(gettimeofday(&tm, NULL), "Time get Error");
+	protec_error(gettimeofday(&tm, NULL), "Time get Error");
 	cr_time_ms = (tm.tv_sec * 1000 * 1000) + (tm.tv_usec);
 	return (cr_time_ms);
 }

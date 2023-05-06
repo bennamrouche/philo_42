@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:07:48 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/05 17:23:40 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ void	print_log(t_philo *philo, char *log)
 {
 	long long	time_ms;
 
-	pthread_mutex_lock(&philo->lock);
+	sem_wait(philo->lock);
 	time_ms = get_time_ms() - philo->data->tm_start;
-	pthread_mutex_unlock(&philo->lock);
-	
+	sem_post(&philo->lock);
+	sem_wait(philo->data->sem_print);
 	printf("%lld %lld %s\n", time_ms, philo->index, log);
 	if (log[0] == 'd')
 		return ;
-	pthread_mutex_unlock(&philo->data->mut_print);
+	sem_post(philo->data->sem_print);
 }
 
 long long	get_time_ms(void)
@@ -71,7 +71,7 @@ long long	get_time_ms(void)
 	struct timeval	tm;
 	long long		cr_time_ms;
 
-	protec_errr(gettimeofday(&tm, NULL), "Time get Error");
+	protec_error(gettimeofday(&tm, NULL), "Time get Error");
 	cr_time_ms = (tm.tv_sec * 1000) + (tm.tv_usec / 1000);
 	return (cr_time_ms);
 }
