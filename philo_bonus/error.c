@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:02:35 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 13:56:46 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,10 @@ void	protec_error_pt(void *val, char *err)
 			perror(err);
 		exit(1);
 	}
+}
+
+void	sem_protec(sem_t *val)
+{
+	if (val == SEM_FAILED)
+		fatal_error("error : semaphore error");
 }

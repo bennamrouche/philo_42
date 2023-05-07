@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:07:48 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 22:20:07 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,14 @@ void	print_log(t_philo *philo, char *log)
 
 	sem_wait(philo->lock);
 	time_ms = get_time_ms() - philo->data->tm_start;
-	sem_post(&philo->lock);
+	if (philo->data->num_of_eat > 0
+		&& philo->data->num_of_eat <= philo->num_of_eat)
+		exit(EXIT_MAX_EAT);
+	sem_post(philo->lock);
 	sem_wait(philo->data->sem_print);
 	printf("%lld %lld %s\n", time_ms, philo->index, log);
 	if (log[0] == 'd')
-		return ;
+		exit(EXIT_DAIED);
 	sem_post(philo->data->sem_print);
 }
 

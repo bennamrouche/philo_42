@@ -6,15 +6,15 @@
 #    By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/27 09:36:34 by ebennamr          #+#    #+#              #
-#    Updated: 2023/05/06 12:30:57 by ebennamr         ###   ########.fr        #
+#    Updated: 2023/05/06 20:59:20 by ebennamr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #----------------== Variable Block ==--------------------#
 NAME = philo_bonus
 CC = cc
-CFALS = -g #-fsanitize=thread
-SRC =  error.c ft_atoi.c philo.c strtrim.c utils.c utils2.c monitor.c life.c
+CFALS = -Wall -Wextra -Werror -pthread
+SRC =  error.c ft_atoi.c philo.c strtrim.c utils.c utils2.c monitor.c life.c ft_itoi.c
 INCLUDE =  philo.h
 OBJ = $(SRC:.c=.o)
 

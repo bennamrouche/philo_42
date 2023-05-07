@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:52:53 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/06 12:47:37 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 21:58:47 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ void	*life(void *pt)
 	t_philo	*philo;
 
 	philo = (t_philo *)pt;
-	protec_error(pthread_create(philo->th_id, NULL, monitor, philo),
-		"err: thread ");
+	protec_error(pthread_create(&philo->th_id, NULL, monitor_call, philo),
+		"error: thread ");
 	if ((philo->index % 2) == 0)
-		usleep(1000);
+		usleep(500);
 	while (1)
 	{
+		sem_wait(philo->lock);
+		sem_post(philo->lock);
 		take_forks(philo);
 		eating(philo);
 		print_log(philo, SLEEP);

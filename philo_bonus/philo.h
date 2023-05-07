@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 11:47:59 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 22:01:51 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <unistd.h>
 # include <string.h>
 # include <semaphore.h>
+# include <sys/wait.h>
+# include <signal.h>
 # define ERR_OUT "malloc fail"
 # define ERR_PS_NUM "Positve number required"
 # define ERR_ARG "Invalid arg number"
@@ -32,6 +34,8 @@
 # define SEM_PRINT "print_lock"
 # define SEM_FORKS "FORKS"
 # define SEM_LOCK "lock-"
+# define EXIT_DAIED 1
+# define EXIT_MAX_EAT 0
 
 typedef struct data_s
 {
@@ -69,9 +73,10 @@ void				protec_error(int val, char *err);
 char				*ft_strtrim(char *s1, char *set);
 int					ft_strlen(char *str);
 void				sleep_ms(long time);
-int					monitor(t_philo *philo, int i, int eat_max);
+int					monitor(t_philo *philo);
 void				*life(void *pt);
 unsigned			long long	get_time_us(void);
 void				sem_protec(sem_t *val);
 char				*ft_itoa(int n);
+void				*monitor_call(void *arg);
 #endif

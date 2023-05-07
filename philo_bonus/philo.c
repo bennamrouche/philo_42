@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:01:04 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 22:22:48 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,17 @@ static void	parser(int ac, char **args, t_data *data, int *num_of_philo)
 	data->tm_start = get_time_ms();
 	sem_unlink(SEM_PRINT);
 	sem_unlink(SEM_FORKS);
-	data->forks = sem_open(SEM_FORKS, 0644, *num_of_philo);
+	data->forks = sem_open(SEM_FORKS, O_CREAT | O_RDWR, 0644, *num_of_philo);
 	sem_protec(data->forks);
-	data->sem_print = sem_open(SEM_PRINT, 0644, 1);
+	data->sem_print = sem_open(SEM_PRINT, O_CREAT | O_RDWR, 0644, 1);
 	sem_protec(data->sem_print);
 }
 
-t_philo	*philo_create(int num, t_data *data)
+t_philo	*run(int num, t_data *data)
 {
 	int						i;
 	t_philo					*philo;
+	pid_t					pid;
 
 	philo = getall_philo(num);
 	i = 0;
@@ -60,6 +61,11 @@ t_philo	*philo_create(int num, t_data *data)
 		philo[i].data = data;
 		philo[i].num_of_eat = 0;
 		philo[i].lst_eat = get_time_ms();
+		pid = fork();
+		if (pid == 0)
+			life(&philo[i]);
+		else if (pid == -1)
+			protec_error((int)pid, "error : fork fail");
 		i++;
 	}
 	return (philo);
@@ -70,12 +76,18 @@ int	main(int ac, char **av)
 	t_data	*data;
 	int		num_of_philo;
 	t_philo	*philo;
+	int		status;
 
 	if (ac != 5 && ac != 6)
 		fatal_error(ERR_ARG);
 	data = malloc(sizeof(t_data));
 	parser(ac, av, data, &num_of_philo);
-	philo = philo_create(num_of_philo, data);
-	monitor(philo, 0, 0);
+	philo = run(num_of_philo, data);
+	while (waitpid(-1, &status, 0) != -1)
+	{
+		if (WEXITSTATUS(status) == EXIT_DAIED)
+			break ;
+	}
+	kill(0, SIGKILL);
 	return (0);
 }

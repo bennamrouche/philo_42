@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:47:23 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 21:05:09 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strjoin(char *string1, char *string2)
 		return (0);
 	len = ft_strlen(string1) + ft_strlen(string2);
 	count = 0;
-	pt = mphilooc(len + 1);
+	pt = malloc(len + 1);
 	protec_error_pt(pt, ERR_OUT);
 	if (!pt)
 		return (0);
@@ -41,7 +41,7 @@ char	*ft_strjoin(char *string1, char *string2)
 	return (pt - len);
 }
 
-t_philo	*getphilo_philo(int num)
+t_philo	*getall_philo(int num)
 {
 	t_philo		*philo;
 	int			i;
@@ -49,7 +49,7 @@ t_philo	*getphilo_philo(int num)
 	char		*tmp;
 
 	i = 0;
-	philo = mphilooc(num * sizeof(t_philo));
+	philo = malloc(num * sizeof(t_philo));
 	protec_error_pt(philo, ERR_OUT);
 	while (i < num)
 	{
@@ -57,7 +57,8 @@ t_philo	*getphilo_philo(int num)
 		lock_name = ft_strjoin(SEM_LOCK, tmp);
 		free(tmp);
 		sem_unlink(lock_name);
-		philo[i].lock = sem_open(lock_name, 0644, 1);
+		philo[i].lock = sem_open(lock_name, O_CREAT | O_RDWR, 0644, 1);
+		free(lock_name);
 		sem_protec(philo[i].lock);
 			i++;
 	}
@@ -71,7 +72,6 @@ char	*ft_strdup(char *s1)
 
 void	sleep_ms(long time)
 {
-	int					i;
 	unsigned long long	start;
 
 	time *= 1000;
