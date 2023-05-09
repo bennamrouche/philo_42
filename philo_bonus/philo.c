@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:01:04 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/06 22:22:48 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:49:03 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ int	main(int ac, char **av)
 		if (WEXITSTATUS(status) == EXIT_DAIED)
 			break ;
 	}
-	kill(0, SIGKILL);
+	kill(0, SIGINT);
 	return (0);
 }
