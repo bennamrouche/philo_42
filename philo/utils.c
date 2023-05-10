@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:07:48 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/04 17:49:50 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/06 12:46:27 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ long long	get_time_ms(void)
 	struct timeval	tm;
 	long long		cr_time_ms;
 
-	protec_errr(gettimeofday(&tm, NULL), "Time get Error");
+	protec_error(gettimeofday(&tm, NULL), "Time get Error");
 	cr_time_ms = (tm.tv_sec * 1000) + (tm.tv_usec / 1000);
 	return (cr_time_ms);
 }

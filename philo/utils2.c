@@ -6,7 +6,7 @@
 /*   By: ebennamr <ebennamr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:47:23 by ebennamr          #+#    #+#             */
-/*   Updated: 2023/05/04 14:58:22 by ebennamr         ###   ########.fr       */
+/*   Updated: 2023/05/07 13:32:40 by ebennamr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_philo	*getall_philo(int num)
 
 	i = 0;
 	all = malloc(num * sizeof(t_philo));
-	protec_errr_pt(all, ERR_OUT);
+	protec_error_pt(all, ERR_OUT);
 	while (i < num)
 	{
 		pthread_mutex_init(&all[i].phlio_fork1, NULL);
@@ -36,7 +36,6 @@ char	*ft_strdup(char *s1)
 
 void	sleep_ms(long time)
 {
-	int					i;
 	unsigned long long	start;
 
 	time *= 1000;
@@ -50,7 +49,7 @@ unsigned long long	get_time_us(void)
 	struct timeval		tm;
 	unsigned long long	cr_time_ms;
 
-	protec_errr(gettimeofday(&tm, NULL), "Time get Error");
+	protec_error(gettimeofday(&tm, NULL), "Time get Error");
 	cr_time_ms = (tm.tv_sec * 1000 * 1000) + (tm.tv_usec);
 	return (cr_time_ms);
 }
